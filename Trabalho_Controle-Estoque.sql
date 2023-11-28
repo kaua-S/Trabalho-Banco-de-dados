@@ -7,11 +7,11 @@ use ControleEstoque;
 
 -- Criação dos usúarios 
 
-create user 'admin'@3306 identified by "888" ;
+create user 'admin'@localhost identified by "888" ;
 grant all privileges on ControleEstoque.* to 'admin'@3306;
 
-create user 'comprador'@3306 identified by "999" ;
-create user 'comprador2'@3306 identified by "878" ;
+create user 'comprador'@localhost  identified by "999" ;
+create user 'comprador2'@localhost  identified by "878" ;
 
 -- Criação das tabelas
 
