@@ -1,6 +1,9 @@
 # Trabalho-Banco-de-dados
 
 *** Documentação ***
+
+
+
 -- Demonstração de todas as tabelas utilizadas 
 
 
@@ -8,21 +11,37 @@
 
 
 
+
 -- Tabela Produtos 
+
+
+
 ![fgbvccccc](https://github.com/kaua-S/Trabalho-Banco-de-dados/assets/126474688/5d6260a8-1c04-4f65-a588-89d0974257a1)
 
 
 
 -- Tabela Entrada_Produtos 
+
+
+
 ![dfghcvb](https://github.com/kaua-S/Trabalho-Banco-de-dados/assets/126474688/fcda0f94-1e86-42be-8c4b-7cfcee27b5fb)
 
 
 
+
 -- Tabela Saida_Produtos 
+
+
+
 ![rfgdcvbb](https://github.com/kaua-S/Trabalho-Banco-de-dados/assets/126474688/f4f15dde-285e-487b-82dc-138fd620e0aa)
 
 
+
+
 -- Junção das tabelas 
+
+
+
 ![foto](https://github.com/kaua-S/Trabalho-Banco-de-dados/assets/126474688/5f1d7ad8-63b9-4a84-a12d-bfc788a327cc)
 
 -- Problemas na fabricação do código :
