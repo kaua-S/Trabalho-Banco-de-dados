@@ -21,3 +21,8 @@ lação com as tabelas Entrada_produto e Saida_produto que possuem como "conecto
 estrangeira id_produto . Tal erro foi resolvido atraves da auxílio do professor Marcio que demonstrou
 o codigo que deveria ser aplicado para levar a conclusão e finalização do problema discrimante que 
 havia dentro da query em que se estava codando.
+
+--- Tendo em vista que ao se utilizar um banco de dados como o sql é possivel se armazenar informações ,Nesse sentido , 
+tal situação acaba sendo o atributo que melhor define a importancia do controle de estoque , devido , a necessidade que a loja
+possa ter em visualizar , armazenar e organizar as informações de quantidade de produtos , quantidade 
+de produtos que estão disponiveis e a quantidade de produtos comprados.  
