@@ -1,5 +1,8 @@
+
+/*Criação do Banco de Dados ControleEstoque*/
 create database ControleEstoque;
 
+/*Usando o comando use para identificar o banco que vai ser utilizado*/
 use ControleEstoque;
 
 -- Criação dos usúarios 
@@ -8,11 +11,11 @@ create user 'admin'@3306 identified by "888" ;
 grant all privileges on ControleEstoque.* to 'admin'@3306;
 
 create user 'comprador'@3306 identified by "999" ;
-create user 'comprador'@3306 identified by "878" ;
+create user 'comprador2'@3306 identified by "878" ;
 
 -- Criação das tabelas
 
--- Tabela Produtos
+-- Tabela Produtos que possui a chave primaria id_produto
 create table Produtos(
 id_produto tinyint auto_increment primary key ,
 Nome_produto varchar(266),
@@ -23,6 +26,7 @@ Preco_unitario decimal(10,2)
 -- Seleção de todas as colunas da tabela Produtos 
 select * from Produtos;
 
+-- Tabela  EntradaProdutos que possui a chave primaria id_entrada , e tem o relacionamento com a tabela Produtos através da chave estrangeira  id_produto
 
 create table EntradaProdutos(
 id_entrada tinyint auto_increment primary key,
@@ -35,6 +39,7 @@ foreign key (id_produto) references Produtos(id_produto)
 -- Seleção de todas as colunas da tabela EntradaProdutos
 select * from EntradaProdutos;
 
+-- Tabela SaidaProdutos que possui a chave primaria id_saida , e tem o relacionamento com a tabela Produtos através da chave estrangeira id_produto
 
 create table SaidaProdutos(
 id_saida tinyint auto_increment primary key,
@@ -44,9 +49,13 @@ data_saida date,
 foreign key (id_produto) references Produtos(id_produto) 
 );
 
+
+
 -- Seleção de todas as colunas da tabela SaidaProdutos
 select * from SaidaProdutos;
 
+ /*Executando comandos INSERT para adicionar novos produtos, operações de
+entrada e saída*/
 
 
 -- Inserção de valores dentro da tabela Produtos , Usando o Create da sigla C.R.U.D
@@ -61,6 +70,7 @@ insert into Produtos(nome_produto,descricao,preco_unitario) values ("A Bibliotec
  ("Box Clássicos de William Shakespeare","livros escritos por William Shakespeare  , box com livros com capa mole ", 64.90),
 ("Kit Cidade dos Fantasmas","livros escritos por  V. E. Schwab  , box com livros com capa mole ", 68.77),
 ("A revolta de Atlas - Edição Luxo ","livros escritos por   Ayn Rand  , box com livros com capa mole ", 80.66);
+
 
  
  -- Inserção de valores dentro da tabela EntradaProdutos , Usando o Create da sigla C.R.U.D
@@ -89,21 +99,94 @@ insert into Produtos(nome_produto,descricao,preco_unitario) values ("A Bibliotec
 (9,41,"2023-11-16"),
 (10,71,"2023-11-17");
 
+-- Seleção de todas as colunas da tabela EntradaProdutos
+select * from EntradaProdutos;
 
-SELECT distinct
-       p.id_produto                             "Produto",
-       p.Nome_produto                           "Descricao",
-       p.Preco_unitario                         "Preço Unit.",
-       (select sum(e.quantidade) 
-       from Entradaprodutos e
-       where e.id_produto = p.id_produto)       "Entradas",
-       (select sum(s.quantidade) 
-       from Saidaprodutos s
-       where s.id_produto = p.id_produto)       "Saidas",
-       ( (select sum(e.quantidade) 
-          from Entradaprodutos e
-          where e.id_produto = p.id_produto) - 
-         (select sum(s.quantidade) 
-          from Saidaprodutos s
-          where s.id_produto = p.id_produto))   "Saldo em Estoque"       
-FROM Produtos p;
+-- Seleção de todas as colunas da tabela SaidaProdutos
+select * from SaidaProdutos;
+
+/*Utilizando comandos UPDATE para modificar a quantidade em estoque de
+um produto.*/
+
+-- modificando a quantidade de produtos na tabela EntradaProdutos 
+update  EntradaProdutos set quantidade = "323" where id_produto = 2 limit 1;
+update  EntradaProdutos set quantidade = "683" where id_produto = 3 limit 1;
+
+-- modificando a quantidade de produtos na tabela SaidaProdutos
+
+update  SaidaProdutos set quantidade = "33" where id_produto = 2 limit 1;
+update  SaidaProdutos set quantidade = "68" where id_produto = 3 limit 1;
+
+-- alterando a chave estrangeira para deletar o produto com id_produto = 1 
+
+alter table entradaprodutos drop foreign key entradaprodutos_ibfk_1;
+ALTER TABLE entradaprodutos
+ADD CONSTRAINT fk_entradaprodutos
+FOREIGN KEY foreign_key_name(id_produto)
+REFERENCES produtos(id_produto)
+ON DELETE CASCADE;
+
+-- alterando a chave estrangeira para deletar o produto com id_produto = 1 
+
+alter table saidaprodutos drop foreign key saidaprodutos_ibfk_1;
+ALTER TABLE saidaprodutos
+ADD CONSTRAINT fk_saidaprodutos
+FOREIGN KEY foreign_key_name(id_produto)
+REFERENCES produtos(id_produto)
+ON DELETE CASCADE;
+
+
+-- Executando o comando DELETE para remover registros
+delete from Produtos where Preco_unitario >= 800 limit 1;
+
+-- Seleção de todas as colunas da tabela SaidaProdutos
+
+select * from saidaprodutos;
+
+-- Seleção de todas as colunas da tabela EntradaProdutos
+
+select * from entradaprodutos;
+
+-- Seleção de todas as colunas da tabela Produtos
+
+select * from Produtos;
+
+/* Selecione todos os produtos em estoque  
+
+Listando as operações de entrada em um determinado período
+
+Mostrando as operações de saída de um produto específico
+
+Calculando o saldo atual de cada produto  */ 
+
+SELECT DISTINCT
+    p.id_produto 'Produto',
+    p.Nome_produto 'Descricao',
+    p.Preco_unitario 'Preço Unit.',
+    (SELECT 
+            SUM(E.Quantidade)
+        FROM
+            Entradaprodutos e
+        WHERE
+            e.Id_produto = p.Id_produto) 'Entradas',
+    (SELECT 
+            SUM(S.Quantidade)
+        FROM
+            Saidaprodutos s
+        WHERE
+            s.Id_produto = p.Id_produto) 'Saidas',
+    ((SELECT 
+            SUM(E.Quantidade)
+        FROM
+            Entradaprodutos e
+        WHERE
+            e.Id_produto = p.Id_produto) - (SELECT 
+            SUM(s.Quantidade)
+        FROM
+            Saidaprodutos s
+        WHERE
+            s.Id_produto = p.Id_produto)) 'Saldo em Estoque'
+FROM
+    Produtos p 
+    
+    
