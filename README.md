@@ -1,6 +1,11 @@
 # Trabalho-Banco-de-dados
 
 *** Documentação ***
+
+
+
+
+
 ![foto](https://github.com/kaua-S/Trabalho-Banco-de-dados/assets/126474688/5f1d7ad8-63b9-4a84-a12d-bfc788a327cc)
 
 -- Problemas na fabricação do código :
