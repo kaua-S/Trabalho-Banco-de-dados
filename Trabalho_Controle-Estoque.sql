@@ -8,7 +8,7 @@ use ControleEstoque;
 -- Criação dos usúarios 
 
 create user 'admin'@localhost identified by "888" ;
-grant all privileges on ControleEstoque.* to 'admin'@3306;
+grant all privileges on ControleEstoque.* to 'admin'@localhost;
 
 create user 'comprador'@localhost  identified by "999" ;
 create user 'comprador2'@localhost  identified by "878" ;
